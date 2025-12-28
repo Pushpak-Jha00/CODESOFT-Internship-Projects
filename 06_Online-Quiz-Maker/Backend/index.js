@@ -37,7 +37,7 @@ app.use("/api/stats", statsRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = "https://quizmaker-8n5u5l5i1-pushpaks-projects-481b28fb.vercel.app";
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
