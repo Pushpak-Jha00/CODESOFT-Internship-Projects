@@ -20,7 +20,7 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors({origin:"http://localhost:5173", credentials:true}));
+app.use(cors({origin:"https://quizmaker-8n5u5l5i1-pushpaks-projects-481b28fb.vercel.app", credentials:true}));
 app.use(express.json());
 app.use(cookieParser());
 
