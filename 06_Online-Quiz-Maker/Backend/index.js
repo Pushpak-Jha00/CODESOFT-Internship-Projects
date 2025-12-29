@@ -20,7 +20,26 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors({origin:"https://quizmaker-8n5u5l5i1-pushpaks-projects-481b28fb.vercel.app", credentials:true}));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://quizmaker-livid.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin (Postman, mobile apps)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
