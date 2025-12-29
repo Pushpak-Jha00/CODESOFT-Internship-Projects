@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Mail, Lock } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import api from "../api/axios";
 import { useAuthStore } from "../store/authStore.js";
 import PageWrapper from "../components/PageWrapper.jsx";
+
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -164,13 +165,14 @@ export default function Login() {
         {/* Footer */}
         <p className="text-sm text-gray-600 text-center mt-6">
           Don’t have an account?{" "}
-          <a
-            href="/register"
+          <Link
+            to="/register"
             className="font-medium text-black hover:underline"
-          >
-            Create one
-          </a>
-        </p>
+              >
+    Create one
+  </Link>
+</p>
+
       </motion.div>
     </div>
     </PageWrapper>
