@@ -39,10 +39,17 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/quizzes" element={<Quizzes />} />
-        <Route path="/quiz/:id" element={<QuizPlay />} />
         <Route path="/result/:id" element={<QuizResult />} />
 
         {/* 🔒 Protected Routes */}
+
+      <Route path="/quiz/:id" 
+          element={
+          <ProtectedRoute>
+            <QuizPlay />
+         </ProtectedRoute>
+        } />
+
         <Route
           path="/dashboard"
           element={

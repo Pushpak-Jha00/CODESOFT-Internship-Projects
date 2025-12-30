@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import toast from "react-hot-toast";
 import api from "../api/axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PageWrapper from "../components/PageWrapper";
 
 export default function Register() {
@@ -246,9 +246,9 @@ export default function Register() {
         {/* Footer */}
         <p className="text-sm text-gray-600 text-center mt-6">
           Already have an account?{" "}
-          <a href="/login" className="font-medium text-black hover:underline">
+          <Link to="/login" className="font-medium text-black hover:underline">
             Login
-          </a>
+          </Link>
         </p>
       </motion.div>
     </div>
