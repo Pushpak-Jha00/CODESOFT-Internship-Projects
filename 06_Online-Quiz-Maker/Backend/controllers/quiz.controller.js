@@ -89,3 +89,41 @@ export const getMyQuizzes = async (req, res, next) => {
     next(error);
   }
 };
+
+
+/* =========================
+   Update quiz (PRIVATE)
+========================= */
+
+export const updateQuiz = async (req, res) => {
+  try {
+    const quiz = await Quiz.findById(req.params.id);
+
+    if (!quiz) {
+      return res.status(404).json({ message: "Quiz not found" });
+    }
+
+    // 🔒 Only creator can edit
+    if (quiz.createdBy.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        message: "You are not allowed to edit this quiz",
+      });
+    }
+
+    // ✅ Update allowed fields
+    quiz.title = req.body.title ?? quiz.title;
+    quiz.description = req.body.description ?? quiz.description;
+    quiz.questions = req.body.questions ?? quiz.questions;
+
+    await quiz.save();
+
+    res.json({
+      message: "Quiz updated successfully",
+      quiz,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to update quiz",
+    });
+  }
+};

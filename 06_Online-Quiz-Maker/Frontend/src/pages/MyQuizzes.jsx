@@ -26,17 +26,13 @@ export default function MyQuizzes() {
 
   if (loading) {
     return (
-      <div className="max-w-4xl mx-auto text-center">
-        Loading quizzes...
-      </div>
+      <div className="max-w-4xl mx-auto text-center">Loading quizzes...</div>
     );
   }
 
   if (error) {
     return (
-      <div className="max-w-4xl mx-auto text-center text-red-500">
-        {error}
-      </div>
+      <div className="max-w-4xl mx-auto text-center text-red-500">{error}</div>
     );
   }
 
@@ -45,9 +41,7 @@ export default function MyQuizzes() {
       <h2 className="text-2xl font-bold mb-6">My Quizzes</h2>
 
       {quizzes.length === 0 ? (
-        <p className="text-gray-600">
-          You haven’t created any quizzes yet.
-        </p>
+        <p className="text-gray-600">You haven’t created any quizzes yet.</p>
       ) : (
         <div className="space-y-4">
           {quizzes.map((quiz) => (
@@ -58,20 +52,30 @@ export default function MyQuizzes() {
               <div>
                 <h3 className="font-semibold">{quiz.title}</h3>
                 <p className="text-gray-500 text-sm">
-                  Created on{" "}
-                  {new Date(quiz.createdAt).toDateString()}
+                  Created on {new Date(quiz.createdAt).toDateString()}
                 </p>
               </div>
 
               {/* ✅ CORRECT VIEW BUTTON */}
-              <button
-                onClick={() =>
-                  navigate(`/dashboard/quizzes/${quiz._id}/attempts`)
-                }
-                className="text-sm text-blue-600 hover:underline"
-              >
-                View Attempts
-              </button>
+              <div className="flex gap-4">
+                {/* ✏️ EDIT QUIZ */}
+                <button
+                  onClick={() => navigate(`/quiz/${quiz._id}/edit`)}
+                  className="text-sm text-black font-medium hover:underline"
+                >
+                  Edit
+                </button>
+
+                {/* 👥 VIEW ATTEMPTS */}
+                <button
+                  onClick={() =>
+                    navigate(`/dashboard/quizzes/${quiz._id}/attempts`)
+                  }
+                  className="text-sm text-blue-600 hover:underline"
+                >
+                  View Attempts
+                </button>
+              </div>
             </div>
           ))}
         </div>

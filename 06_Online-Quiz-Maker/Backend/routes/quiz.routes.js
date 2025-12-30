@@ -4,6 +4,7 @@ import {
   getAllQuizzes,
   getMyQuizzes,
   getQuizById,
+  updateQuiz,
 } from "../controllers/quiz.controller.js";
 import { protect } from "../middleware/authMiddleware.js";
 
@@ -21,6 +22,9 @@ router.get("/", getAllQuizzes);
 
 // Get single quiz (public)
 router.get("/:id", getQuizById);
+
+// Update quiz
+router.put("/:id", protect, updateQuiz);
 
 
 

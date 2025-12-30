@@ -1,8 +1,18 @@
 import mongoose from "mongoose";
 
+// const answerSchema = new mongoose.Schema({
+//   questionIndex: {
+//     type: Number,
+//     required: true,
+//   },
+//   selectedOptionIndex: {
+//     type: Number,
+//     required: true,
+//   },
+// });
 const answerSchema = new mongoose.Schema({
-  questionIndex: {
-    type: Number,
+  questionId: {   // ✅ FIX
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
   selectedOptionIndex: {
@@ -10,6 +20,7 @@ const answerSchema = new mongoose.Schema({
     required: true,
   },
 });
+
 
 const resultSchema = new mongoose.Schema(
   {

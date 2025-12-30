@@ -22,6 +22,7 @@ import MyAttempts from "./pages/MyAttempts.jsx";
 /* Route Protection */
 import ProtectedRoute from "./components/PrivateRoute.jsx";
 import QuizAttempts from "./pages/QuizAttempts.jsx";
+import EditQuiz from "./pages/EditQuiz.jsx";
 
 function App() {
   const { checkAuth } = useAuthStore();
@@ -83,6 +84,15 @@ function App() {
           element={
             <ProtectedRoute>
               <MyAttempts />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/quiz/:id/edit"
+          element={
+            <ProtectedRoute>
+              <EditQuiz/>
             </ProtectedRoute>
           }
         />

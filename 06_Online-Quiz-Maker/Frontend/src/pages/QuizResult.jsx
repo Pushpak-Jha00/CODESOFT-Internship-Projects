@@ -33,20 +33,14 @@ export default function QuizResult() {
   }
 
   if (error) {
-    return (
-      <p className="text-center text-red-500">
-        {error}
-      </p>
-    );
+    return <p className="text-center text-red-500">{error}</p>;
   }
 
   if (!result) return null;
 
   const totalQuestions = result.totalQuestions || 0;
   const percentage =
-    totalQuestions > 0
-      ? Math.round((result.score / totalQuestions) * 100)
-      : 0;
+    totalQuestions > 0 ? Math.round((result.score / totalQuestions) * 100) : 0;
 
   const answers = result.answers || [];
 
@@ -58,21 +52,15 @@ export default function QuizResult() {
         animate={{ opacity: 1, y: 0 }}
         className="bg-white p-6 rounded-xl shadow mb-8 text-center"
       >
-        <h1 className="text-3xl font-bold mb-2">
-          Quiz Result 🎉
-        </h1>
+        <h1 className="text-3xl font-bold mb-2">Quiz Result 🎉</h1>
 
-        <p className="text-gray-600 mb-4">
-          {result.quiz?.title}
-        </p>
+        <p className="text-gray-600 mb-4">{result.quiz?.title}</p>
 
         <div className="text-5xl font-bold mb-2">
           {result.score} / {totalQuestions}
         </div>
 
-        <p className="text-lg text-gray-500">
-          Score: {percentage}%
-        </p>
+        <p className="text-lg text-gray-500">Score: {percentage}%</p>
 
         <Link
           to="/quizzes"
@@ -85,13 +73,13 @@ export default function QuizResult() {
       {/* 🔹 Answer Review */}
       <div className="space-y-6">
         {result.quiz.questions.map((q, index) => {
-          const userAnswer = answers.find(
-            (a) => a.questionIndex === index
-          );
+          // const userAnswer = answers.find(
+          //   (a) => a.questionIndex === index
+          // );
+          const userAnswer = answers.find((a) => a.questionId === q._id);
 
           const isCorrect =
-            userAnswer?.selectedOptionIndex ===
-            q.correctOptionIndex;
+            userAnswer?.selectedOptionIndex === q.correctOptionIndex;
 
           return (
             <motion.div
@@ -113,18 +101,12 @@ export default function QuizResult() {
                     style = "border-green-500 bg-green-50";
                   }
 
-                  if (
-                    i === userAnswer?.selectedOptionIndex &&
-                    !isCorrect
-                  ) {
+                  if (i === userAnswer?.selectedOptionIndex && !isCorrect) {
                     style = "border-red-500 bg-red-50";
                   }
 
                   return (
-                    <li
-                      key={i}
-                      className={`px-4 py-2 rounded border ${style}`}
-                    >
+                    <li key={i} className={`px-4 py-2 rounded border ${style}`}>
                       {opt.text}
                     </li>
                   );
@@ -133,9 +115,7 @@ export default function QuizResult() {
 
               <p
                 className={`mt-3 font-medium ${
-                  isCorrect
-                    ? "text-green-600"
-                    : "text-red-600"
+                  isCorrect ? "text-green-600" : "text-red-600"
                 }`}
               >
                 {isCorrect ? "Correct Answer" : "Wrong Answer"}

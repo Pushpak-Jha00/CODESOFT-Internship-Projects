@@ -4,6 +4,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import api from "../api/axios";
 import toast from "react-hot-toast";
 
+/* 🔀 SHUFFLE QUESTIONS ONLY */
+const shuffleArray = (array) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 export default function QuizPlay() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -35,12 +45,19 @@ export default function QuizPlay() {
     checkAttempt();
   }, [id]);
 
-  // 🔹 Fetch quiz
+  // 🔹 Fetch quiz (WITH QUESTION SHUFFLE)
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
         const res = await api.get(`/quizzes/${id}`);
-        setQuiz(res.data.quiz);
+
+        // 🔀 shuffle ONLY questions
+        const shuffledQuestions = shuffleArray(res.data.quiz.questions);
+
+        setQuiz({
+          ...res.data.quiz,
+          questions: shuffledQuestions,
+        });
       } catch {
         toast.error("Failed to load quiz");
       } finally {
@@ -77,10 +94,15 @@ export default function QuizPlay() {
   const handleSelect = (optionIndex) => {
     setAnswers((prev) => {
       const updated = [...prev];
+      // updated[current] = {
+      //   questionIndex: current,
+      //   selectedOptionIndex: optionIndex,
+      // };
       updated[current] = {
-        questionIndex: current,
+        questionId: quiz.questions[current]._id,
         selectedOptionIndex: optionIndex,
       };
+
       return updated;
     });
   };
@@ -114,9 +136,7 @@ export default function QuizPlay() {
       toast.success("Quiz submitted!");
       navigate(`/result/${res.data.resultId}`);
     } catch (err) {
-      toast.error(
-        err.response?.data?.message || "Submission failed"
-      );
+      toast.error(err.response?.data?.message || "Submission failed");
       setSubmitting(false);
     }
   };
@@ -126,9 +146,7 @@ export default function QuizPlay() {
 
   if (quiz.questions.length === 0) {
     return (
-      <p className="text-center text-gray-600">
-        This quiz has no questions.
-      </p>
+      <p className="text-center text-gray-600">This quiz has no questions.</p>
     );
   }
 

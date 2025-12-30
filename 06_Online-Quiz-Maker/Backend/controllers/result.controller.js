@@ -32,17 +32,31 @@ export const submitQuiz = async (req, res) => {
     }
 
     // 🔹 Calculate score (SAFE)
+    // let score = 0;
+
+    // quiz.questions.forEach((q, index) => {
+    //   const userAnswer = answers.find(
+    //     (a) => a.questionIndex === index
+    //   );
+
+    //   if (
+    //     userAnswer &&
+    //     userAnswer.selectedOptionIndex === q.correctOptionIndex
+    //   ) {
+    //     score++;
+    //   }
+    // });
+
     let score = 0;
 
-    quiz.questions.forEach((q, index) => {
-      const userAnswer = answers.find(
-        (a) => a.questionIndex === index
+    answers.forEach((ans) => {
+      const question = quiz.questions.find(
+        (q) => q._id.toString() === ans.questionId
       );
 
-      if (
-        userAnswer &&
-        userAnswer.selectedOptionIndex === q.correctOptionIndex
-      ) {
+      if (!question) return;
+
+      if (ans.selectedOptionIndex === question.correctOptionIndex) {
         score++;
       }
     });
@@ -67,8 +81,6 @@ export const submitQuiz = async (req, res) => {
     });
   }
 };
-
-
 
 /* =============================
    GET RESULT BY ID (PRIVATE)
@@ -99,7 +111,6 @@ export const getResultById = async (req, res, next) => {
   }
 };
 
-
 /* =============================
    GET MY ATTEMPTS (PRIVATE)
 ============================= */
@@ -127,7 +138,6 @@ export const getMyAttempts = async (req, res, next) => {
   }
 };
 
-
 export const checkAttempt = async (req, res) => {
   const result = await Result.findOne({
     user: req.user._id,
@@ -143,7 +153,6 @@ export const checkAttempt = async (req, res) => {
 
   res.json({ attempted: false });
 };
-
 
 export const getQuizAttempts = async (req, res) => {
   try {
