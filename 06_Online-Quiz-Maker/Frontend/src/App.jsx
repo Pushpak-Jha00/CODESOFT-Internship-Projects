@@ -43,21 +43,15 @@ function App() {
 
         {/* 🔒 Protected Routes */}
 
-<<<<<<< HEAD
-      <Route path="/quiz/:id" 
-=======
-        <Route path="/quiz/:id" 
->>>>>>> 2627244c9b7167b082e6c49c4abe9fca988ece30
+
+      <Route path="/quiz/:id"  
           element={
           <ProtectedRoute>
             <QuizPlay />
          </ProtectedRoute>
-        } />
-<<<<<<< HEAD
+        } 
+        />
 
-=======
-        
->>>>>>> 2627244c9b7167b082e6c49c4abe9fca988ece30
         <Route
           path="/dashboard"
           element={
