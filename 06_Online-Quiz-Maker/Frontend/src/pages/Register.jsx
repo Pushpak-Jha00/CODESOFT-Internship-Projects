@@ -11,11 +11,7 @@ import {
 } from "lucide-react";
 import toast from "react-hot-toast";
 import api from "../api/axios";
-<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom";
-=======
-import { useNavigate, Link } from "react-router-dom";
->>>>>>> 2627244c9b7167b082e6c49c4abe9fca988ece30
 import PageWrapper from "../components/PageWrapper";
 
 export default function Register() {

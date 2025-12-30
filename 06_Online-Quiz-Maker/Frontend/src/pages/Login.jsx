@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Mail, Lock } from "lucide-react";
-<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom";
-=======
-import { useNavigate, Link } from "react-router-dom";
->>>>>>> 2627244c9b7167b082e6c49c4abe9fca988ece30
 import toast from "react-hot-toast";
 import api from "../api/axios";
 import { useAuthStore } from "../store/authStore.js";
@@ -172,18 +168,10 @@ export default function Login() {
           <Link
             to="/register"
             className="font-medium text-black hover:underline"
-<<<<<<< HEAD
           >
             Create one
           </Link>
         </p>
-=======
-              >
-    Create one
-  </Link>
-</p>
-
->>>>>>> 2627244c9b7167b082e6c49c4abe9fca988ece30
       </motion.div>
     </div>
     </PageWrapper>
