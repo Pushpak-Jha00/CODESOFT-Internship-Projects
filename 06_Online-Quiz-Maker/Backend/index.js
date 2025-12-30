@@ -22,7 +22,7 @@ const app = express();
 // Middleware
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://quizmaker-wine.vercel.app",
+  "https://quizmaker-pi.vercel.app",
 ];
 
 app.use(
